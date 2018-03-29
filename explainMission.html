@@ -85,10 +85,10 @@
         </div>
         <div class="videoBox">
             <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video.png">
-                <source src="video/mov_bbb.mp4" type="video/mp4">
+                <source src="" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
-            <div class="playBtn" id="fullScreenBtn">
+            <div class="playBtn" id="playBtn1">
                 <!-- <span></span> -->
             </div>
         </div>
@@ -104,44 +104,20 @@
             <p>获得的城市卡片越多，认识的城市越多。</p>
         </div>
         <div class="videoBox">
-            <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video2.png">
+            <video id="video2" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video2.png">
                 <source src="video/mov_bbb.mp4" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
-            <div class="playBtn">
+            <div class="playBtn" id="playBtn2">
                     <!-- <span></span> -->
             </div>
         </div>
     </div>
     <script src="jquery1-12-1.js"></script>
+    <script src="videoPlay.js"></script>
     <script>
-        function launchFullscreen(element,videoBoxs) {
-            //异步不能用，火狐pc不能播放
-            if(element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if(element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            } else if(element.msRequestFullscreen){ 
-                element.msRequestFullscreen(); 
-            } else if(element.oRequestFullscreen){
-                element.oRequestFullscreen();
-            } else if(element.webkitRequestFullscreen){
-                element.webkitRequestFullScreen();
-            }else{
-                var docHtml = document.documentElement;
-                var docBody = document.body;
-                var videobox = document.getElementsByClassName('videoBox')[0];
-                var cssText = 'width:100%;height:100%;overflow:hidden;';
-                docHtml.style.cssText = cssText;
-                docBody.style.cssText = cssText;
-                videobox.style.cssText = cssText+';'+'margin:0px;padding:0px;';
-                document.IsFullScreen = true;
-            }
-            element.play();
-        }
-        document.getElementById('fullScreenBtn').addEventListener('click',function(){
-            launchFullscreen(document.getElementById('video1')); 
-        })
+        //播放js options 分别是 video标签的id 播放器按钮的id 播放视频url
+        videoPlay("video1","playBtn1","video/mov_bbb.mp4");
     </script>
     <script>
             // 禁用脚本代码
