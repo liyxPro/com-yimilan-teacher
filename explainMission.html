@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>闯关说明</title>
     <style>
-        html,body{min-height:100%;background:#fff;margin:0;padding:0;font-family:'微软雅黑';}
+        html,body{min-height:100%;background:#fff;margin:0;padding:0;font-family:'微软雅黑';
+            background: url(images/yimiyuedu_bj.png) no-repeat;background-size: cover;}
         h1,h2,h3,h4,h5,h6,p{
             margin: 0;
             padding: 0;
@@ -15,9 +16,8 @@
         .outSideBox{
             width: 95%;
             margin: 0 auto;
-            /* background-color: #cccccc; */
-            height: 600px;
             border: 1px solid transparent;
+            margin-bottom: 40px;
         }
         .explainTBox{
             text-align: center;
@@ -28,6 +28,8 @@
             color: #76481F;
             margin-top: 47px;
             margin-bottom: 24px;
+            font-weight: bold;
+            font-size: 18px;
         }
         .explainTBox p{
             color: #434343;
@@ -35,13 +37,13 @@
         }
         .videoBox{
             margin-top: 44px;
-            height: 164px;
-            margin-bottom: 50px;
+            /* height: 164px; */
+            margin-bottom: 25px;
             position: relative;
         }
         .videoBox video{
             width: 100%;
-            border: 5px solid #50B5FF;
+            /* border: 5px solid #50B5FF; */
             border-radius: 10px;
             box-sizing: border-box;
         }
@@ -53,8 +55,10 @@
             border-radius: 50%;
             width: 60px;
             height: 60px;
-            background:-webkit-linear-gradient(top, #FFFFFF, #9BD3FF); background:-moz-linear-gradient(top, #FFFFFF, #9BD3FF); 
-            box-shadow: 0 2px 4px rgba(119,65,65,0.3);
+            /*background:-webkit-linear-gradient(top, #FFFFFF, #9BD3FF); background:-moz-linear-gradient(top, #FFFFFF, #9BD3FF); 
+            box-shadow: 0 2px 4px rgba(119,65,65,0.3);*/
+            background: url("images/Group5.png");
+            background-size: contain;
         }
         .playBtn span{
             display: inline-block;
@@ -63,6 +67,10 @@
             border: 15px solid #50B5FF;
             border-radius: 5px;
             /* border-color: transparent transparent #50B5FF #50B5FF; */
+        }
+        video::-webkit-media-controls-enclosure {
+            /*禁用播放器控制栏的样式*/
+            display: none !important;
         }
     </style>
 </head>
@@ -76,7 +84,7 @@
             <p>也可以帮助老师检测学生有没有读书。</p>  
         </div>
         <div class="videoBox">
-            <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true'>
+            <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video.png">
                 <source src="video/mov_bbb.mp4" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
@@ -96,7 +104,7 @@
             <p>获得的城市卡片越多，认识的城市越多。</p>
         </div>
         <div class="videoBox">
-            <video id="video1">
+            <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video2.png">
                 <source src="video/mov_bbb.mp4" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
@@ -105,52 +113,84 @@
             </div>
         </div>
     </div>
+    <script src="jquery1-12-1.js"></script>
     <script>
-        function launchFullscreen(element) {
-            //此方法不可以在異步任務中執行，否則火狐無法全屏
+        function launchFullscreen(element,videoBoxs) {
+            //异步不能用，火狐pc不能播放
             if(element.requestFullscreen) {
-
                 element.requestFullscreen();
-
             } else if(element.mozRequestFullScreen) {
-
                 element.mozRequestFullScreen();
-
             } else if(element.msRequestFullscreen){ 
-
                 element.msRequestFullscreen(); 
-
             } else if(element.oRequestFullscreen){
-
                 element.oRequestFullscreen();
-
             } else if(element.webkitRequestFullscreen){
-
                 element.webkitRequestFullScreen();
-
             }else{
-
                 var docHtml = document.documentElement;
-
                 var docBody = document.body;
-
-                var videobox = document.getElementById('videobox');
-
+                var videobox = document.getElementsByClassName('videoBox')[0];
                 var cssText = 'width:100%;height:100%;overflow:hidden;';
-
                 docHtml.style.cssText = cssText;
-
                 docBody.style.cssText = cssText;
-
                 videobox.style.cssText = cssText+';'+'margin:0px;padding:0px;';
-
                 document.IsFullScreen = true;
             }
-
+            element.play();
         }
         document.getElementById('fullScreenBtn').addEventListener('click',function(){
-         launchFullscreen(document.getElementById('video1')); 
+            launchFullscreen(document.getElementById('video1')); 
         })
     </script>
+    <script>
+            // 禁用脚本代码
+            (function(valid, rule) {
+                if(typeof Element === 'undefined') console.log('IE8以下浏览器无效');
+                var origin = new RegExp('^' + location.origin),Ele = Element;
+                each(['appendChild', 'insertBefore', 'insertAfter'], proxy);
+                function proxy(prop) {
+                    var proxy_obj = Ele.prototype[prop];
+                    Ele.prototype[prop] = function(elem) {
+                        if (!elem.children.length) {
+                            var tag = elem.tagName.toLowerCase();
+                            if (tag == 'script' && isBanScript(elem)) {
+                                console.log('禁用脚本：' + elem.src);
+                                var substitute = document.createElement('script');
+                                substitute.innerHTML = '// 禁用脚本：' + elem.src;
+                                elem = substitute;
+                            }
+                        }
+                        return proxy_obj.apply(this, arguments);
+                    };
+                }
+        
+                function isBanScript(script) {
+                    if (origin.test(script.src)) return false;
+                    return valid === each(rule, match);
+        
+                    function match(val) {
+                        var type = typeof val;
+                        if (type === 'string') {
+                            if (script.src == val) return true;
+                        } else if (type === 'function') {
+                            if (val(script)) return true;
+                        } else {
+                            if (val.test(script.src)) return true;
+                        }
+                        return false;
+                    }
+                }
+        
+                function each(arr, fn) {
+                    if (arr) {
+                        for (var i = 0, n = arr.length; i < n; i++) {
+                            if (fn.call(arr[i], arr[i], i) === true) return false;
+                        }
+                    }
+                    return true;
+                }
+            })(true, []);
+        </script>
 </body>
 </html>
