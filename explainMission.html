@@ -52,11 +52,9 @@
             top:50%;
             left:50%;
             transform: translate(-50%,-50%);
-            border-radius: 50%;
+            border: none;
             width: 60px;
             height: 60px;
-            /*background:-webkit-linear-gradient(top, #FFFFFF, #9BD3FF); background:-moz-linear-gradient(top, #FFFFFF, #9BD3FF); 
-            box-shadow: 0 2px 4px rgba(119,65,65,0.3);*/
             background: url("images/Group5.png");
             background-size: contain;
         }
@@ -83,14 +81,14 @@
             <p>闯关关卡可以激励学生坚持读书。</p> 
             <p>也可以帮助老师检测学生有没有读书。</p>  
         </div>
-        <div class="videoBox">
+        <div class="videoBox videoBox1">
             <video id="video1" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video.png">
                 <source src="" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
-            <div class="playBtn" id="playBtn1">
+            <button class="playBtn" id="playBtn1">
                 <!-- <span></span> -->
-            </div>
+            </button>
         </div>
         <div class="explainTBox">
             <h4>不同书的关卡数为什么不同？</h4>
@@ -103,22 +101,22 @@
             <p>读书万卷，行万里路。闯过的关卡越多，</p>
             <p>获得的城市卡片越多，认识的城市越多。</p>
         </div>
-        <div class="videoBox">
-            <video id="video2" webkit-playsinline='true' playsinline='true'x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video2.png">
+        <div class="videoBox videoBox2">
+            <video id="video2" webkit-playsinline='true' playsinline='true' x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true'x5-video-ignore-metadata='true' poster="images/yimiyuedu_video2.png">
                 <source src="video/mov_bbb.mp4" type="video/mp4">
                 您的浏览器不支持 HTML5 video 标签。
             </video>
-            <div class="playBtn" id="playBtn2">
+            <button class="playBtn" id="playBtn2">
                     <!-- <span></span> -->
-            </div>
+            </button>
         </div>
     </div>
     <script src="jquery1-12-1.js"></script>
     <script src="videoPlay.js"></script>
     <script>
-        //播放js options 分别是 video标签的id 播放器按钮的id 播放视频url
-        videoPlay("video1","playBtn1","video/mov_bbb.mp4");
-        videoPlay("video2","playBtn2","video/mov_bbb.mp4");
+        //播放js options 分别是 video标签的id 播放器按钮的id 播放视频url 播放器外层盒子
+        videoPlay("video1","playBtn1","video/mov_bbb.mp4","videoBox1");
+        videoPlay("video2","playBtn2","video/mov_bbb.mp4","videoBox2");
     </script>
     <script>
             // 禁用脚本代码

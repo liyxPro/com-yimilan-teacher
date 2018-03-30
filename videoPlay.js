@@ -1,9 +1,8 @@
-function videoPlay(videos,playBtn,videoUrl){
+function videoPlay(videos,playBtn,videoUrl,vbs){
         function isPlay(){
             var netWorkState=navigator.connection.type;
             ifPlay=false;
             if(netWorkState){
-                netWorkState=="wifi"
                 switch (netWorkState){
                     case "wifi":
                     ifPlay=true;
@@ -23,10 +22,6 @@ function videoPlay(videos,playBtn,videoUrl){
             }
             return ifPlay;
         }   
-           
-           var myVideo=document.getElementById("video1");
-            
-
     function launchFullscreen(element,videoBoxs) {
         //异步不能用，火狐pc不能播放
         if(element.requestFullscreen) {
@@ -40,29 +35,75 @@ function videoPlay(videos,playBtn,videoUrl){
         } else if(element.webkitRequestFullscreen){
             element.webkitRequestFullScreen();
         }else{
-            var docHtml = document.documentElement;
-            var docBody = document.body;
-            var videobox = document.getElementsByClassName('videoBox')[0];
-            var cssText = 'width:100%;height:100%;overflow:hidden;';
-            docHtml.style.cssText = cssText;
-            docBody.style.cssText = cssText;
-            videobox.style.cssText = cssText+';'+'margin:0px;padding:0px;';
             document.IsFullScreen = true;
         }
         element.play();
     }
-    $("#"+playBtn).on("click",function(){
-            if (isPlay()){
+        /**
+         * 
+         反射調用
+        var invokeFieldOrMethod = function(element, method) {
+            var usablePrefixMethod;
+            ["webkit", "moz", "ms", "o", ""].forEach(function(prefix) {
+                if (usablePrefixMethod) return;
+                if (prefix === "") {// 无前缀，方法首字母小写
+                    method = method.slice(0,1).toLowerCase() + method.slice(1); 
+                }
+                var typePrefixMethod = typeof element[prefix + method];
+                if (typePrefixMethod + "" !== "undefined") {
+                    if (typePrefixMethod === "function") {
+                        usablePrefixMethod = element[prefix + method]();
+                    } else {
+                        usablePrefixMethod = element[prefix + method];
+                    }
+                }
+            });
+            return usablePrefixMethod;
+        };
+        */
+        //退出全屏
+        function exitFullscreen(){
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if(document.oRequestFullscreen){
+                document.oCancelFullScreen();
+            }else if (document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else{
+                document.IsFullScreen = false;
+            }
+        }
+    document.getElementById(playBtn).onclick=function(){
+            //isPlay()
+            function videoPlaying(){
                 $("#"+videos).attr("src",videoUrl);
+                $("#"+playBtn).css("display","none");
                 launchFullscreen(document.getElementById(videos)); 
+                $("#"+videos).attr("controls","controls");
+                $("#"+videos).on("ended",function(){
+                    exitFullscreen(); 
+                    $("#"+playBtn).css("display","block");
+                    $("#"+videos).attr("controls",false);
+                })
+            }
+            if (true){
+                videoPlaying()
             }else{
                 if(confirm("您的网络环境为移动流量，是否确定继续播放")){
-                    $("#"+videos).attr("src",videoUrl);
-                    launchFullscreen(document.getElementById(videos)); 
+                    videoPlaying();
                 }else{
                     return;
                 }
             }
-    })
+
+    }
+    /*$("#"+playBtn).on("click",function(){
+            //alert(isPlay());
+           
+    })*/
 }
     
