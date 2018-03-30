@@ -90,7 +90,7 @@ function videoPlay(videos,playBtn,videoUrl,vbs){
                     $("#"+videos).attr("controls",false);
                 })
             }
-            if (true){
+            if (isPlay()){
                 videoPlaying()
             }else{
                 if(confirm("您的网络环境为移动流量，是否确定继续播放")){
